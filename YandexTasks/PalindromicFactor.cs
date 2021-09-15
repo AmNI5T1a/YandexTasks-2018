@@ -8,8 +8,8 @@ namespace YandexTasks
     {
         public PalinromicFactor()
         {
-            Console.WriteLine(FindPalindromOfTheStroke("kazak"));
-            Console.WriteLine(FindPalindromOfTheStroke("yandex"));
+            while (true)
+                Console.WriteLine(FindPalindromOfTheStroke("fgfksfdgsafawlkkazakdfsgdsg"));
         }
 
         private void GetInputFromUser()
@@ -30,7 +30,7 @@ namespace YandexTasks
 
         private string FindPalindromOfTheStroke(string userInput)
         {
-            uint minPossibleLettersInPalindrom = 2;
+            uint minPossibleLettersInPalindrom = 5;
 
             bool answerIsFound = false;
 

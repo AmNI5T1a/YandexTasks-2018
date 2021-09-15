@@ -7,7 +7,7 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            PalinromicFactor task2 = new PalinromicFactor();
+
         }
     }
 }
