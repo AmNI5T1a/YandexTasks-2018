@@ -1,5 +1,6 @@
 ﻿using System;
 using YandexTasks;
+using YandexTasks.DivideThemAll;
 
 namespace Main
 {
@@ -7,7 +8,7 @@ namespace Main
     {
         static void Main(string[] args)
         {
-
+            DivideThemAll task = new DivideThemAll();
         }
     }
 }
