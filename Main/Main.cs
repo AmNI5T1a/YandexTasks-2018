@@ -1,6 +1,4 @@
-﻿using System;
-using YandexTasks;
-using YandexTasks.DivideThemAll;
+﻿using YandexTasks.DivideThemAll;
 
 namespace Main
 {

@@ -7,14 +7,16 @@ namespace YandexTasks.DivideThemAll
 {
     public class DivideThemAll
     {
+        List<Vector2> pointsPositionInWorldSpace = new List<Vector2>();
         private Context _context = new Context();
         public DivideThemAll()
         {
             GetInputFromUser();
+            System.Console.WriteLine(CalculateFiguresCenterPositions());
         }
 
 
-        private string GetInputFromUser()
+        private void GetInputFromUser()
         {
             bool numberOfTargetPracticeIsFound = false;
             uint figuresCount = 0;
@@ -29,18 +31,14 @@ namespace YandexTasks.DivideThemAll
                     System.Console.WriteLine("Number of target practice must be: (1 <= your input <= 100 000)");
             }
 
-
-            // TODO: 
-            //! 1 - Rework to another method
-            List<string> figureTypeAndCoordinatesFromUserInput = new List<string>();
-            List<Vector2> pointsPositionInWorldSpace = new List<Vector2>();
+            List<string> listOfFiguresTypeAndTheirCoordinates = new List<string>();
 
             for (uint i = 0; i < figuresCount; i++)
             {
-                figureTypeAndCoordinatesFromUserInput.Add(Console.ReadLine());
+                listOfFiguresTypeAndTheirCoordinates.Add(Console.ReadLine());
             }
 
-            foreach (string stroke in figureTypeAndCoordinatesFromUserInput)
+            foreach (string stroke in listOfFiguresTypeAndTheirCoordinates)
             {
                 string[] valuesInStroke = stroke.Split(' ');
 
@@ -54,52 +52,54 @@ namespace YandexTasks.DivideThemAll
                 }
 
                 pointsPositionInWorldSpace.Add(_context.ExecuteOperation(stroke));
+            }
+        }
 
+        private Vector2 FindFarthestPointFromCenter()
+        {
+            Vector2 tempFarthestPointFromSpace = new Vector2(pointsPositionInWorldSpace[0].X, pointsPositionInWorldSpace[0].Y);
+
+            foreach (Vector2 point in pointsPositionInWorldSpace)
+            {
+                if (Vector2.Distance(new Vector2(0, 0), point) > Vector2.Distance(new Vector2(0, 0), tempFarthestPointFromSpace))
+                {
+                    tempFarthestPointFromSpace = point;
+                }
             }
 
-            Vector2[] twoPointsConnectedByALine = new Vector2[]
+            return tempFarthestPointFromSpace;
+        }
+
+        private string CalculateFiguresCenterPositions()
+        {
+            Vector2[] farthestPointsInVector2Space = new Vector2[]
             {
-                new Vector2(pointsPositionInWorldSpace[0].X,pointsPositionInWorldSpace[0].Y),
-                new Vector2(pointsPositionInWorldSpace[1].X,pointsPositionInWorldSpace[1].Y),
+                new Vector2(0,0),
+                new Vector2(0,0)
             };
 
-            foreach (Vector2 point in pointsPositionInWorldSpace)
-            {
-                if (Vector2.Distance(new Vector2(0, 0), point) > Vector2.Distance(new Vector2(0, 0), twoPointsConnectedByALine[0]))
-                {
-                    twoPointsConnectedByALine[0] = point;
-                }
-            }
+            farthestPointsInVector2Space[0] = FindFarthestPointFromCenter();
+            pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[0]);
+            farthestPointsInVector2Space[1] = FindFarthestPointFromCenter();
+            pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[1]);
 
-            foreach (Vector2 point in pointsPositionInWorldSpace)
+            if(pointsPositionInWorldSpace.Count <= 2)
             {
-                if (Vector2.Distance(new Vector2(0, 0), point) > Vector2.Distance(new Vector2(0, 0), twoPointsConnectedByALine[1]))
+                return "Yes";
+            }
+            else
+            {
+                foreach(Vector2 point in pointsPositionInWorldSpace)
                 {
-                    if (point != twoPointsConnectedByALine[0])
+                    if ((((point.X - farthestPointsInVector2Space[0].X) * (farthestPointsInVector2Space[1].Y - farthestPointsInVector2Space[0].Y)) - ((farthestPointsInVector2Space[1].X - farthestPointsInVector2Space[0].X) * (point.Y - farthestPointsInVector2Space[0].Y))) == 0)
                     {
-                        twoPointsConnectedByALine[1] = point;
+                        continue;
                     }
-                }
-            }
-
-            foreach (Vector2 point in pointsPositionInWorldSpace)
-            {
-                if (point == twoPointsConnectedByALine[0] || point == twoPointsConnectedByALine[1])
-                {
-                    pointsPositionInWorldSpace.Remove(point);
-                }
-            }
-
-            foreach (Vector2 point in pointsPositionInWorldSpace)
-            {
-                if ((((point.X - twoPointsConnectedByALine[0].X) * (twoPointsConnectedByALine[1].Y - twoPointsConnectedByALine[0].Y)) - ((twoPointsConnectedByALine[1].X - twoPointsConnectedByALine[0].X) * (point.Y - twoPointsConnectedByALine[0].Y))) == 0)
-                {
-                    continue;
-                }
-                else
-                {
-                    return "No";
-                }
+                    else
+                    {
+                        return "No";
+                    }  
+                }   
             }
 
             return "Yes";
