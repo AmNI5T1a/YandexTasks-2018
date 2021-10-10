@@ -1,17 +1,9 @@
 using System;
-using System.Linq;
-
 
 namespace YandexTasks
 {
     public class PalinromicFactor
     {
-        public PalinromicFactor()
-        {
-            while (true)
-                Console.WriteLine(FindPalindromOfTheStroke("fgfksfdgsafawlkkazakdfsgdsg"));
-        }
-
         private void GetInputFromUser()
         {
             bool userInputIsCorrect = false;
@@ -30,7 +22,7 @@ namespace YandexTasks
 
         private string FindPalindromOfTheStroke(string userInput)
         {
-            uint minPossibleLettersInPalindrom = 5;
+            uint minPossibleLettersInPalindrom = 4;
 
             bool answerIsFound = false;
 

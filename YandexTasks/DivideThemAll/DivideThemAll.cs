@@ -7,7 +7,7 @@ namespace YandexTasks.DivideThemAll
 {
     public class DivideThemAll
     {
-        List<Vector2> pointsPositionInWorldSpace = new List<Vector2>();
+        private List<Vector2> pointsPositionInWorldSpace = new List<Vector2>();
         private Context _context = new Context();
         public DivideThemAll()
         {
@@ -83,13 +83,13 @@ namespace YandexTasks.DivideThemAll
             farthestPointsInVector2Space[1] = FindFarthestPointFromCenter();
             pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[1]);
 
-            if(pointsPositionInWorldSpace.Count <= 2)
+            if (pointsPositionInWorldSpace.Count <= 2)
             {
                 return "Yes";
             }
             else
             {
-                foreach(Vector2 point in pointsPositionInWorldSpace)
+                foreach (Vector2 point in pointsPositionInWorldSpace)
                 {
                     if ((((point.X - farthestPointsInVector2Space[0].X) * (farthestPointsInVector2Space[1].Y - farthestPointsInVector2Space[0].Y)) - ((farthestPointsInVector2Space[1].X - farthestPointsInVector2Space[0].X) * (point.Y - farthestPointsInVector2Space[0].Y))) == 0)
                     {
@@ -98,8 +98,8 @@ namespace YandexTasks.DivideThemAll
                     else
                     {
                         return "No";
-                    }  
-                }   
+                    }
+                }
             }
 
             return "Yes";
