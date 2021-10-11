@@ -1,4 +1,4 @@
-﻿using YandexTasks.DivideThemAll;
+﻿using YandexTasks.Tests;
 
 namespace Main
 {
@@ -6,7 +6,8 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            DivideThemAll divider = new DivideThemAll();
+            test_PalindromicFactor palindromicFactorTEST = new test_PalindromicFactor();
+            System.Console.WriteLine(palindromicFactorTEST.Test());
         }
     }
 }

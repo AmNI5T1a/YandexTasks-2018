@@ -2,8 +2,7 @@ using System;
 using System.Numerics;
 using System.Collections.Generic;
 
-
-namespace YandexTasks.DivideThemAll
+namespace YandexTasks
 {
     public class DivideThemAll
     {

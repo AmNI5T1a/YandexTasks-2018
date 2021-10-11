@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-namespace YandexTasks.DivideThemAll
+namespace YandexTasks
 {
     public class CircleStrategy : IStrategy
     {

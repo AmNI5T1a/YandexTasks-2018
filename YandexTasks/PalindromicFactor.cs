@@ -4,25 +4,37 @@ namespace YandexTasks
 {
     public class PalinromicFactor
     {
-        private void GetInputFromUser()
+        ushort minPossibleLettersInPalindrom = 3;
+        private string CheckInputBeforeFind(string userInput)
         {
-            bool userInputIsCorrect = false;
-            string userInput = null;
+            bool userInputIsCorrect = true;
+
+            if (userInput.Length <= 2 || userInput.Length >= 200000)
+            {
+                userInputIsCorrect = false;
+            }
 
             while (!userInputIsCorrect)
             {
                 userInput = Console.ReadLine();
 
-                if (userInput.Length < 2 || userInput.Length >= 200000)
-                    System.Console.WriteLine("Min size of stroke is: 2 \nMax size of stroke is: 200,000");
+                if (userInput.Length <= 2 || userInput.Length >= 200000)
+                {
+                    System.Console.WriteLine("Stroke length must be more than 2 characters or less than 200.000 characters");
+                }
                 else
+                {
                     userInputIsCorrect = true;
+                    return userInput;
+                }
             }
+
+            return userInput;
         }
 
-        private string FindPalindromOfTheStroke(string userInput)
+        public string FindPalindromInWord(string userInput)
         {
-            uint minPossibleLettersInPalindrom = 4;
+            userInput = CheckInputBeforeFind(userInput);
 
             bool answerIsFound = false;
 
@@ -67,7 +79,6 @@ namespace YandexTasks
             return new string("-1");
         }
 
-
         private string[] SplitStringByCharacter(string strokeToSplitByCharacter)
         {
             char[] arr = strokeToSplitByCharacter.ToCharArray();
@@ -80,11 +91,14 @@ namespace YandexTasks
 
             return splittedStringArray;
         }
+
         private string ReverseString(string strokeToReverse)
         {
             char[] arr = strokeToReverse.ToCharArray();
             Array.Reverse(arr);
             return new string(arr);
         }
+
+        public void ChangeMinimunPossibleCharactersInPalindrom(ushort newMinPossibleLetters) => this.minPossibleLettersInPalindrom = newMinPossibleLetters;
     }
 }
