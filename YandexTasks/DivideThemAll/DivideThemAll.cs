@@ -6,19 +6,13 @@ namespace YandexTasks
 {
     public class DivideThemAll
     {
-        private List<Vector2> pointsPositionInWorldSpace = new List<Vector2>();
+        public List<Vector2> pointsPositionInWorldSpace { get; set; }
         private Context _context = new Context();
-        public DivideThemAll()
-        {
-            GetInputFromUser();
-            System.Console.WriteLine(CalculateFiguresCenterPositions());
-        }
-
-
-        private void GetInputFromUser()
+        public void GetInputFromUser()
         {
             bool numberOfTargetPracticeIsFound = false;
             uint figuresCount = 0;
+            pointsPositionInWorldSpace = new List<Vector2>();
 
             while (!numberOfTargetPracticeIsFound)
             {
@@ -69,25 +63,26 @@ namespace YandexTasks
             return tempFarthestPointFromSpace;
         }
 
-        private string CalculateFiguresCenterPositions()
+        public string CalculatePossibleToDivideThemIntoEqualParts()
         {
-            Vector2[] farthestPointsInVector2Space = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,0)
-            };
-
-            farthestPointsInVector2Space[0] = FindFarthestPointFromCenter();
-            pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[0]);
-            farthestPointsInVector2Space[1] = FindFarthestPointFromCenter();
-            pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[1]);
-
             if (pointsPositionInWorldSpace.Count <= 2)
             {
                 return "Yes";
             }
             else
             {
+                Vector2[] farthestPointsInVector2Space = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,0)
+            };
+
+                farthestPointsInVector2Space[0] = FindFarthestPointFromCenter();
+                pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[0]);
+                farthestPointsInVector2Space[1] = FindFarthestPointFromCenter();
+                pointsPositionInWorldSpace.Remove(farthestPointsInVector2Space[1]);
+
+
                 foreach (Vector2 point in pointsPositionInWorldSpace)
                 {
                     if ((((point.X - farthestPointsInVector2Space[0].X) * (farthestPointsInVector2Space[1].Y - farthestPointsInVector2Space[0].Y)) - ((farthestPointsInVector2Space[1].X - farthestPointsInVector2Space[0].X) * (point.Y - farthestPointsInVector2Space[0].Y))) == 0)
@@ -99,9 +94,10 @@ namespace YandexTasks
                         return "No";
                     }
                 }
+
+                return "Yes";
             }
 
-            return "Yes";
         }
     }
 }
